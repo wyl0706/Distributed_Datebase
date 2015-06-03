@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table>
+    <elements>
+        <location>Beijing</location>
+        <!-- This is primary key -->
+        <price>500</price>
+        <numRooms>100</numRooms>
+        <numAvail>50</numAvail>
+    </elements>
+    <elements>
+        <location>Shanghai</location>
+        <price>800</price>
+        <numRooms>150</numRooms>
+        <numAvail>70</numAvail>
+    </elements>
+    <elements>
+        <location>Guanghzou</location>
+        <price>600</price>
+        <numRooms>120</numRooms>
+        <numAvail>30</numAvail>
+    </elements>
+</table>

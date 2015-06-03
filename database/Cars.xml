@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<table>
+    <elements>
+        <location>Guangzhou</location>
+        <price>8</price>
+        <numCars>1200</numCars>
+        <numAvail>800</numAvail>
+    </elements>
+    <elements>
+        <location>Guilin</location>
+        <price>8</price>
+        <numCars>500</numCars>
+        <numAvail>200</numAvail>
+    </elements>
+    <elements>
+        <location>Shanghai</location>
+        <price>12</price>
+        <numCars>1500</numCars>
+        <numAvail>700</numAvail>
+    </elements>
+    <elements>
+        <location>Beijing</location>
+        <price>10</price>
+        <numCars>1000</numCars>
+        <numAvail>500</numAvail>
+    </elements>
+</table>

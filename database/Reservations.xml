@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table>
+    <elements>
+        <bookid>1</bookid>
+        <custName>zhangsan</custName>
+        <resvType>1</resvType>
+        <!--1 means flights, 2 means hotels, 3 means cars -->
+        <resvKey>F/A117</resvKey>
+        <!-- This is primary key -->
+    </elements>
+    <elements>
+        <bookid>2</bookid>
+        <custName>zhangsan</custName>
+        <resvType>2</resvType>
+        <!--1 means flights, 2 means hotels, 3 means cars -->
+        <resvKey>Beijing</resvKey>
+    </elements>
+    <elements>
+        <bookid>3</bookid>
+        <custName>zhangsan</custName>
+        <resvType>3</resvType>
+        <!--1 means flights, 2 means hotels, 3 means cars -->
+        <resvKey>Beijing</resvKey>
+    </elements>
+</table>

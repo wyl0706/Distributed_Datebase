@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<table>
+    <elements>
+        <custName>zhangsan</custName>
+        <!-- This is primary key -->
+    </elements>
+    <elements>
+        <custName>lisi</custName>
+    </elements>
+    <elements>
+        <custName>wangwu</custName>
+    </elements>
+
+</table>
