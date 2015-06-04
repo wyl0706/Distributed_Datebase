@@ -8,12 +8,6 @@
     <numAvail>800</numAvail>
   </elements>
   <elements>
-    <location>Guilin</location>
-    <price>8</price>
-    <numCars>500</numCars>
-    <numAvail>200</numAvail>
-  </elements>
-  <elements>
     <location>Shanghai</location>
     <price>12</price>
     <numCars>1500</numCars>

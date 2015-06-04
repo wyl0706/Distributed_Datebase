@@ -133,61 +133,78 @@ public class ResourceManger {
 
     public void addCar(int xid, Cars car) {
         carsTable.put(car.getLocation(), car);
-        try {
-            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
-            writer.write("add Reservations " + car.getLocation() + " " + car.getPrice() + " "
-                    + car.getNumCars() + " " + car.getNumAvail() + '\n');
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String context = "add Cars " + car.getLocation() + " " + car.getPrice() + " "
+                + car.getNumCars() + " " + car.getNumAvail() + '\n';
+        writelog(xid, context);
     }
 
     public void addCustomers(int xid, Customers cust) {
         customersTable.put(cust.getCustName(), cust);
-        try {
-            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
-            writer.write("add Reservations " + cust.getCustName() + '\n');
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String context = "add Customers " + cust.getCustName() + '\n';
+        writelog(xid, context);
     }
 
     public void addFilghts(int xid, Flights flight) {
         flightsTable.put(flight.getFlightNum(), flight);
-        try {
-            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
-            writer.write("add Reservations " + flight.getFlightNum() + " " + flight.getPrice() + " "
-                    + flight.getNumSeats() + " " + flight.getNumAvail() + '\n');
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String context = "add Flights " + flight.getFlightNum() + " " + flight.getPrice() + " "
+                + flight.getNumSeats() + " " + flight.getNumAvail() + '\n';
+        writelog(xid, context);
     }
 
     public void addHotels(int xid, Hotels hotel) {
         hotelsTable.put(hotel.getLocation(), hotel);
-        try {
-            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
-            writer.write("add Reservations " + hotel.getLocation() + " " + hotel.getPrice() + " "
-                    + hotel.getNumRooms() + " " + hotel.getNumAvail() + "\n");
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String context = "add Hotels " + hotel.getLocation() + " " + hotel.getPrice() + " "
+                + hotel.getNumRooms() + " " + hotel.getNumAvail() + "\n";
+        writelog(xid, context);
     }
 
     public void addReservations(int xid, Reservations reservation) {
         reservationsTable.put(reservation.getBookid(), reservation);
+        String context = "add Reservations " + reservation.getBookid() + " " + reservation.getCustName() + " "
+                + reservation.getResvType() + " " + reservation.getResvKey() + '\n';
+        writelog(xid, context);
+    }
+
+    public void deleteCar(int xid, String carloc) {
+        Cars car = carsTable.remove(carloc);
+        String context = "delete Cars " + car.getLocation() + " " + car.getPrice() + " "
+                + car.getNumCars() + " " + car.getNumAvail() + '\n';
+        writelog(xid, context);
+    }
+
+    public void deleteCustomer(int xid, String custName) {
+        Customers cust = customersTable.remove(custName);
+        String context = "delete Customers " + cust.getCustName() + '\n';
+        writelog(xid, context);
+    }
+
+    public void deleteFilght(int xid, String flightNum) {
+        Flights filght = flightsTable.remove(flightNum);
+        String context = "delete Flights " + filght.getFlightNum() + " " + filght.getPrice() + " "
+                + filght.getNumSeats() + " " + filght.getNumAvail() + '\n';
+        writelog(xid, context);
+    }
+
+    public void deleteHotel(int xid, String location) {
+        Hotels hotel = hotelsTable.remove(location);
+        String context = "delete Hotels " + hotel.getLocation() + " " + hotel.getPrice() + " "
+                + hotel.getNumRooms() + " " + hotel.getNumAvail() + '\n';
+        writelog(xid, context);
+    }
+
+    public void deleteReservation(int xid, String bookid) {
+        Reservations rese = reservationsTable.remove(Integer.getInteger(bookid));
+        String context = "delete Reservations " + rese.getBookid() + " " + rese.getCustName() + " "
+                + rese.getResvType() + " " + rese.getResvKey() + '\n';
+        writelog(xid, context);
+    }
+
+    public void writelog(int xid, String context) {
+        FileWriter writer = null;
         try {
-            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
-            writer.write("add Reservations " + reservation.getBookid() + " " + reservation.getCustName() + " "
-                    + reservation.getResvType() + " " + reservation.getResvKey());
+            writer = new FileWriter("logs/" + xid + ".txt", true);
+            writer.write(context);
+            writer.flush();
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -201,14 +218,8 @@ public class ResourceManger {
 
     public void commit(int xid) {
         xids.remove(xid);
-        try {
-            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
-            writer.write("commit\n");
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String context = "commit\n";
+        writelog(xid, context);
     }
 
     public int start() {
@@ -230,12 +241,10 @@ public class ResourceManger {
 
         ResourceManger rm = new ResourceManger();
         RMTools rmt = new RMTools();
-        Cars car = new Cars("Guilin", 8, 500, 200);
+        //Cars car = new Cars("Guilin", 8, 500, 200);
         rm.creatCarsTable();
         int xid = rm.start();
-        rm.addCar(xid, car);
-        rm.addCar(xid, car);
+        rm.deleteCar(xid, "Guilin");
         rmt.writeCars(rm.carsTable);
-
     }
 }

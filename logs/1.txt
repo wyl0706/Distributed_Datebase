@@ -1,2 +1,1 @@
-add Reservations Guilin 8 500 200
-add Reservations Guilin 8 500 200
+delete Cars Guilin 8 500 200
