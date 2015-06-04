@@ -194,8 +194,21 @@ public class ResourceManger {
         }
     }
 
+    public void abort(int xid) {
+        xids.remove(xid);
+
+    }
+
     public void commit(int xid) {
         xids.remove(xid);
+        try {
+            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
+            writer.write("commit\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int start() {
