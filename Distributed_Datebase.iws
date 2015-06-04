@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1e7452e2-621e-4d35-9a83-a51156beff8f" name="Default" comment="the frist commit">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README" />
+    <list default="true" id="1e7452e2-621e-4d35-9a83-a51156beff8f" name="Default" comment="a commit">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$" afterPath="$PROJECT_DIR$" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Distributed_Datebase.iws" afterPath="$PROJECT_DIR$/Distributed_Datebase.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
     </list>
     <ignored path="Distributed_Datebase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/README">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="35" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+              <caret line="0" column="60" selection-start-line="0" selection-start-column="60" selection-end-line="0" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -596,7 +596,7 @@
       <workItem from="1433318596921" duration="3347000" />
       <workItem from="1433334147148" duration="7405000" />
       <workItem from="1433402556963" duration="4426000" />
-      <workItem from="1433408198229" duration="455000" />
+      <workItem from="1433408198229" duration="800000" />
     </task>
     <task id="LOCAL-00001" summary="the frist commit">
       <created>1433344456885</created>
@@ -616,11 +616,17 @@
       <option name="project" value="LOCAL" />
       <updated>1433408247241</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="a commit">
+      <created>1433408679038</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1433408679038</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32684000" />
+    <option name="totallyTimeSpent" value="33029000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -666,7 +672,8 @@
   <component name="VcsManagerConfiguration">
     <option name="SHOW_FILE_HISTORY_DETAILS" value="false" />
     <MESSAGE value="the frist commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="the frist commit" />
+    <MESSAGE value="a commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="a commit" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1239,7 +1246,7 @@
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="35" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+          <caret line="0" column="60" selection-start-line="0" selection-start-column="60" selection-end-line="0" selection-end-column="60" />
           <folding />
         </state>
       </provider>
