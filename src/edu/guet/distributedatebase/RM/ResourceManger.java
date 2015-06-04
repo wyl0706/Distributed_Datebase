@@ -131,28 +131,67 @@ public class ResourceManger {
         return carsTable;
     }
 
-    public void addCar(Cars car) {
+    public void addCar(int xid, Cars car) {
         carsTable.put(car.getLocation(), car);
+        try {
+            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
+            writer.write("add Reservations " + car.getLocation() + " " + car.getPrice() + " "
+                    + car.getNumCars() + " " + car.getNumAvail() + '\n');
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addCustomers(Customers cust) {
+    public void addCustomers(int xid, Customers cust) {
         customersTable.put(cust.getCustName(), cust);
+        try {
+            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
+            writer.write("add Reservations " + cust.getCustName() + '\n');
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addFilghts(Flights flight) {
+    public void addFilghts(int xid, Flights flight) {
         flightsTable.put(flight.getFlightNum(), flight);
+        try {
+            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
+            writer.write("add Reservations " + flight.getFlightNum() + " " + flight.getPrice() + " "
+                    + flight.getNumSeats() + " " + flight.getNumAvail() + '\n');
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addHotels(Hotels hotel) {
+    public void addHotels(int xid, Hotels hotel) {
         hotelsTable.put(hotel.getLocation(), hotel);
+        try {
+            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
+            writer.write("add Reservations " + hotel.getLocation() + " " + hotel.getPrice() + " "
+                    + hotel.getNumRooms() + " " + hotel.getNumAvail() + "\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addReservations(Reservations reservation) {
+    public void addReservations(int xid, Reservations reservation) {
         reservationsTable.put(reservation.getBookid(), reservation);
-    }
-
-    public void abort(int xid) {
-        xids.remove(xid);
+        try {
+            FileWriter writer = new FileWriter("logs/" + xid + ".txt", true);
+            writer.write("add Reservations " + reservation.getBookid() + " " + reservation.getCustName() + " "
+                    + reservation.getResvType() + " " + reservation.getResvKey());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void commit(int xid) {
@@ -180,9 +219,10 @@ public class ResourceManger {
         RMTools rmt = new RMTools();
         Cars car = new Cars("Guilin", 8, 500, 200);
         rm.creatCarsTable();
-        rm.addCar(car);
+        int xid = rm.start();
+        rm.addCar(xid, car);
+        rm.addCar(xid, car);
         rmt.writeCars(rm.carsTable);
-
 
     }
 }
