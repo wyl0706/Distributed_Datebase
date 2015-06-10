@@ -131,38 +131,43 @@ public class ResourceManger {
         return carsTable;
     }
 
-    public void addCar(int xid, Cars car) {
+    public void addCar(Transaction tran, Cars car) {
         carsTable.put(car.getLocation(), car);
         String context = "add Cars " + car.getLocation() + " " + car.getPrice() + " "
                 + car.getNumCars() + " " + car.getNumAvail() + '\n';
-        writelog(xid, context);
+        tran.setIsChangeCars(true);
+        writelog(tran.getXid(), context);
     }
 
-    public void addCustomers(int xid, Customers cust) {
+    public void addCustomers(Transaction tran, Customers cust) {
         customersTable.put(cust.getCustName(), cust);
         String context = "add Customers " + cust.getCustName() + '\n';
-        writelog(xid, context);
+        tran.setIsChangeCustomers(true);
+        writelog(tran.getXid(), context);
     }
 
-    public void addFilghts(int xid, Flights flight) {
+    public void addFilghts(Transaction tran, Flights flight) {
         flightsTable.put(flight.getFlightNum(), flight);
         String context = "add Flights " + flight.getFlightNum() + " " + flight.getPrice() + " "
                 + flight.getNumSeats() + " " + flight.getNumAvail() + '\n';
-        writelog(xid, context);
+        tran.setIsChangeFilghts(true);
+        writelog(tran.getXid(), context);
     }
 
-    public void addHotels(int xid, Hotels hotel) {
+    public void addHotels(Transaction tran, Hotels hotel) {
         hotelsTable.put(hotel.getLocation(), hotel);
         String context = "add Hotels " + hotel.getLocation() + " " + hotel.getPrice() + " "
                 + hotel.getNumRooms() + " " + hotel.getNumAvail() + "\n";
-        writelog(xid, context);
+        tran.setIsChangeHotels(true);
+        writelog(tran.getXid(), context);
     }
 
-    public void addReservations(int xid, Reservations reservation) {
+    public void addReservations(Transaction tran, Reservations reservation) {
         reservationsTable.put(reservation.getBookid(), reservation);
         String context = "add Reservations " + reservation.getBookid() + " " + reservation.getCustName() + " "
                 + reservation.getResvType() + " " + reservation.getResvKey() + '\n';
-        writelog(xid, context);
+        tran.setIsChangeReservations(true);
+        writelog(tran.getXid(), context);
     }
 
     public void deleteCar(int xid, String carloc) {
@@ -222,9 +227,9 @@ public class ResourceManger {
         writelog(xid, context);
     }
 
-    public int start() {
-        xid++;
-        File f = new File("logs/" + xid + ".txt");
+    public Transaction start() {
+        Transaction tran = new Transaction(++xid);
+        File f = new File("logs/" + tran.getXid() + ".txt");
         FileWriter fw = null;
         try {
             fw = new FileWriter(f);
@@ -233,8 +238,8 @@ public class ResourceManger {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        xids.add(xid);
-        return xid;
+        xids.add(tran.getXid());
+        return tran;
     }
 
     public static void main(String[] args) {
@@ -243,8 +248,7 @@ public class ResourceManger {
         RMTools rmt = new RMTools();
         //Cars car = new Cars("Guilin", 8, 500, 200);
         rm.creatCarsTable();
-        int xid = rm.start();
-        rm.deleteCar(xid, "Guilin");
+
         rmt.writeCars(rm.carsTable);
     }
 }
