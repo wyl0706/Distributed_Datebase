@@ -9,7 +9,7 @@ public class Transaction {
     private int xid;
     private boolean isChangeCars;
     private boolean isChangeCustomers;
-    private boolean isChangeFilghts;
+    private boolean isChangeFlights;
     private boolean isChangeHotels;
     private boolean isChangeReservations;
 
@@ -17,7 +17,7 @@ public class Transaction {
         this.xid = xid;
         isChangeCars = false;
         isChangeCustomers = false;
-        isChangeFilghts = false;
+        isChangeFlights = false;
         isChangeHotels = false;
         isChangeReservations = false;
     }
@@ -46,12 +46,12 @@ public class Transaction {
         this.isChangeCustomers = isChangeCustomers;
     }
 
-    public boolean isChangeFilghts() {
-        return isChangeFilghts;
+    public boolean isChangeFlights() {
+        return isChangeFlights;
     }
 
-    public void setIsChangeFilghts(boolean isChangeFilghts) {
-        this.isChangeFilghts = isChangeFilghts;
+    public void setIsChangeFlights(boolean isChangeFlights) {
+        this.isChangeFlights = isChangeFlights;
     }
 
     public boolean isChangeHotels() {

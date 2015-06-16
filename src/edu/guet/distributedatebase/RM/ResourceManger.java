@@ -1,10 +1,13 @@
 package edu.guet.distributedatebase.RM;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
+import edu.guet.distributedatebase.RM.Flights;
+import com.sun.java.util.jar.pack.*;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 
@@ -148,11 +151,11 @@ public class ResourceManger {
         writelog(tran.getXid(), context);
     }
 
-    public void addFilghts(Transaction tran, Flights flight) {
+    public void addFlights(Transaction tran, Flights flight) {
         flightsTable.put(flight.getFlightNum(), flight);
         String context = "add Flights " + flight.getFlightNum() + " " + flight.getPrice() + " "
                 + flight.getNumSeats() + " " + flight.getNumAvail() + '\n';
-        tran.setIsChangeFilghts(true);
+        tran.setIsChangeFlights(true);
         writelog(tran.getXid(), context);
     }
 
@@ -188,11 +191,11 @@ public class ResourceManger {
         writelog(tran.getXid(), context);
     }
 
-    public void deleteFilghts(Transaction tran, String flightNum) {
-        Flights filght = flightsTable.remove(flightNum);
-        String context = "delete Flights " + filght.getFlightNum() + " " + filght.getPrice() + " "
-                + filght.getNumSeats() + " " + filght.getNumAvail() + '\n';
-        tran.setIsChangeFilghts(true);
+    public void deleteFlights(Transaction tran, String flightNum) {
+        Flights flight = flightsTable.remove(flightNum);
+        String context = "delete Flights " + flight.getFlightNum() + " " + flight.getPrice() + " "
+                + flight.getNumSeats() + " " + flight.getNumAvail() + '\n';
+        tran.setIsChangeFlights(true);
         writelog(tran.getXid(), context);
     }
 
@@ -241,12 +244,12 @@ public class ResourceManger {
     public void updataFlights(Transaction tran, Flights flight) {
         Flights old = flightsTable.get(flight.getFlightNum());
         if (old == null) {
-            this.addFilghts(tran, flight);
+            this.addFlights(tran, flight);
         } else {
             flightsTable.put(flight.getFlightNum(), flight);
             String contxt = "updata Cars old " + old.getFlightNum() + " " + old.getPrice() + " " + old.getNumSeats() + " " + old.getNumAvail()
                     + " new " + flight.getFlightNum() + " " + flight.getPrice() + " " + flight.getNumSeats() + " " + flight.getNumAvail();
-            tran.setIsChangeFilghts(true);
+            tran.setIsChangeFlights(true);
             writelog(tran.getXid(), contxt);
         }
     }
@@ -290,7 +293,7 @@ public class ResourceManger {
         }
     }
 
-    public void abort(Transaction tran) {
+    /*public void abort(Transaction tran) {
         xids.remove(xid);
         Stack<String> logs = new Stack<String>();
         File file = new File("logs/" + xid + ".txt");
@@ -313,24 +316,53 @@ public class ResourceManger {
                 return;
             }
             String[] strs = tempString.split(" ");
+            //此处用到反射Reflect来实现调用操作不同的表的函数
             switch (strs[0]) {
+                //add操作对应的delete操作不需要对应的对象，只需要字符串
                 case "add":
-                    //此处用到反射Reflect来实现调用操作不同的表的函数
                     try {
                         Method method = this.getClass().getMethod("delete" + strs[1], Transaction.class, String.class);
                         method.invoke(this, tran, strs[2]);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
                 case "delete":
                     try {
-                        Method method = this.getClass().getMethod("add" + strs[1], Transaction.class, Cars.class);
-                        Cars car = new Cars(strs[2], Integer.parseInt(strs[3]),
-                                Integer.parseInt(strs[4]), Integer.parseInt(strs[5]));
-                        method.invoke(this, tran, car);
+                        Method method = this.getClass().getMethod("add" + strs[1], Transaction.class, Class.forName(strs[1]));
+                        Class<?> obj = Class.forName(strs[1]);
+                        Constructor<?> cons[] = obj.getConstructors();
+                        switch (strs[1]) {
+                            case "Cars":
+                                cons[1].newInstance(strs[2], Integer.parseInt(strs[3]),
+                                        Integer.parseInt(strs[4]), Integer.parseInt(strs[5]));
+                                method.invoke(this, tran, obj);
+                                break;
+                            case "Customers":
+                                cons[1].newInstance(strs[2]);
+
+                                break;
+                            case "Flights":
+                                cons[1].newInstance(strs[2], Integer.parseInt(strs[3]),
+                                        Integer.parseInt(strs[4]), Integer.parseInt(strs[5]));
+                                method.invoke(this, tran, obj);
+                                break;
+                            case "Hotels":
+                                cons[1].newInstance(strs[2], Integer.parseInt(strs[3]),
+                                        Integer.parseInt(strs[4]), Integer.parseInt(strs[5]));
+                                method.invoke(this, tran, obj);
+                                break;
+                            case "Reservations":
+                                cons[1].newInstance(Integer.parseInt(strs[2]), strs[3],
+                                        Integer.parseInt(strs[4]), strs[5]);
+                                method.invoke(this, tran, obj);
+                                break;
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
                 case "updata":
                     try {
                         Method method = this.getClass().getMethod("updata" + strs[1], Transaction.class, Cars.class);
@@ -345,7 +377,8 @@ public class ResourceManger {
 
         }
 
-    }
+    }*/
+
 
     public void commit(Transaction tran) {
         xids.remove(tran.getXid());
@@ -355,15 +388,15 @@ public class ResourceManger {
 
     public Transaction start() {
         Transaction tran = new Transaction(++xid);
-        File f = new File("logs/" + tran.getXid() + ".txt");
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter(f);
-            fw.write("");
-            fw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        File f = new File("logs/" + tran.getXid() + ".txt");
+//        FileWriter fw = null;
+//        try {
+//            fw = new FileWriter(f);
+//            fw.write("");
+//            fw.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         xids.add(tran.getXid());
         return tran;
     }
@@ -372,11 +405,11 @@ public class ResourceManger {
 
         ResourceManger rm = new ResourceManger();
         RMTools rmt = new RMTools();
-        Cars car = new Cars("Guilin", 10, 800, 200);
-        rm.creatCarsTable();
+        Flights car = new Flights("B2", 10, 800, 200);
+        rm.creatFlightsTable();
         Transaction tran = rm.start();
-        rm.abort(tran);
-        //rm.addCar(tran,car);
-        rmt.writeCars(rm.carsTable);
+//        rm.abort(tran);
+//        rm.deleteFlights(tran, car.getFlightNum());
+        rmt.writeFlights(rm.flightsTable);
     }
 }

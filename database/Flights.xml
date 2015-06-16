@@ -1,22 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <table>
-    <elements>
-        <flightNum>B2</flightNum>
-        <!-- This is primary key -->
-        <price>1000</price>
-        <numSeats>150</numSeats>
-        <numAvail>50</numAvail>
-    </elements>
-    <elements>
-        <flightNum>F/A117</flightNum>
-        <price>2000</price>
-        <numSeats>50</numSeats>
-        <numAvail>20</numAvail>
-    </elements>
-    <elements>
-        <flightNum>F/A18</flightNum>
-        <price>1500</price>
-        <numSeats>20</numSeats>
-        <numAvail>10</numAvail>
-    </elements>
+  <elements>
+    <flightNum>F/A18</flightNum>
+    <price>1500</price>
+    <numSeats>20</numSeats>
+    <numAvail>10</numAvail>
+  </elements>
+  <elements>
+    <flightNum>F/A117</flightNum>
+    <price>2000</price>
+    <numSeats>50</numSeats>
+    <numAvail>20</numAvail>
+  </elements>
 </table>

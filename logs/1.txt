@@ -1,1 +1,1 @@
-delete Cars Guilin 8 500 200
+delete Flights B2 1000 150 50
