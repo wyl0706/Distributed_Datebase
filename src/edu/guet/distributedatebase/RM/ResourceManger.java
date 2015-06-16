@@ -15,17 +15,17 @@ import org.dom4j.io.SAXReader;
  * Created by Caesar on 2015/5/30.
  */
 public class ResourceManger {
-    //
-    HashMap<String, Cars> carsTable = new HashMap<String, Cars>(50, 0.75f);
-    HashMap<String, Customers> customersTable = new HashMap<String, Customers>(50, 0.75f);
-    HashMap<String, Flights> flightsTable = new HashMap<String, Flights>(50, 0.75f);
-    HashMap<String, Hotels> hotelsTable = new HashMap<String, Hotels>(50, 0.75f);
-    HashMap<Integer, Reservations> reservationsTable = new HashMap<Integer, Reservations>(50, 0.75f);
+    //表在内存中使用Hashtable因为Hashtable是线程同步的
+    Hashtable<String, Cars> carsTable = new Hashtable<String, Cars>(50, 0.75f);
+    Hashtable<String, Customers> customersTable = new Hashtable<String, Customers>(50, 0.75f);
+    Hashtable<String, Flights> flightsTable = new Hashtable<String, Flights>(50, 0.75f);
+    Hashtable<String, Hotels> hotelsTable = new Hashtable<String, Hotels>(50, 0.75f);
+    Hashtable<Integer, Reservations> reservationsTable = new Hashtable<Integer, Reservations>(50, 0.75f);
     HashSet<Integer> xids = new HashSet<Integer>();
     int xid = 0;
 
     //creatReservationsTable() is creat a reseations table, the returned value is HashMap<Integer, Reservations>
-    public HashMap<Integer, Reservations> creatReservationsTable() {
+    public Hashtable<Integer, Reservations> creatReservationsTable() {
         try {
             SAXReader reader = new SAXReader();
             Document doc_car = null;
@@ -48,7 +48,7 @@ public class ResourceManger {
     }
 
     //creatHotelsTable() is creat a hotels table, the returned value is HashMap<String, Hotels>
-    public HashMap<String, Hotels> creatHotelsTable() {
+    public Hashtable<String, Hotels> creatHotelsTable() {
         try {
             SAXReader reader = new SAXReader();
             Document doc_car = null;
@@ -71,7 +71,7 @@ public class ResourceManger {
     }
 
     //creatHotelsTable() is creat a flights table,  the returned value is HashMap<String, Flights>
-    public HashMap<String, Flights> creatFlightsTable() {
+    public Hashtable<String, Flights> creatFlightsTable() {
         try {
             SAXReader reader = new SAXReader();
             Document doc_car = null;
@@ -94,7 +94,7 @@ public class ResourceManger {
     }
 
     //creatCustomersTable() is creat a customers table,  the returned value is HashMap<String, Customers>
-    public HashMap<String, Customers> creatCustomersTable() {
+    public Hashtable<String, Customers> creatCustomersTable() {
         try {
             SAXReader reader = new SAXReader();
             Document doc_cust = null;
@@ -114,7 +114,7 @@ public class ResourceManger {
     }
 
     //增加操作
-    public HashMap<String, Cars> creatCarsTable() {
+    public Hashtable<String, Cars> creatCarsTable() {
         try {
             SAXReader reader = new SAXReader();
             Document doc_car = null;
@@ -388,28 +388,28 @@ public class ResourceManger {
 
     public Transaction start() {
         Transaction tran = new Transaction(++xid);
-//        File f = new File("logs/" + tran.getXid() + ".txt");
-//        FileWriter fw = null;
-//        try {
-//            fw = new FileWriter(f);
-//            fw.write("");
-//            fw.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        File f = new File("logs/" + tran.getXid() + ".txt");
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(f);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         xids.add(tran.getXid());
         return tran;
     }
 
     public static void main(String[] args) {
 
-        ResourceManger rm = new ResourceManger();
+/*        ResourceManger rm = new ResourceManger();
         RMTools rmt = new RMTools();
         Flights car = new Flights("B2", 10, 800, 200);
         rm.creatFlightsTable();
         Transaction tran = rm.start();
-//        rm.abort(tran);
-//        rm.deleteFlights(tran, car.getFlightNum());
-        rmt.writeFlights(rm.flightsTable);
+        rm.abort(tran);
+        rm.deleteFlights(tran, car.getFlightNum());
+        rmt.writeFlights(rm.flightsTable);*/
     }
 }

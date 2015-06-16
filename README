@@ -1,3 +1,10 @@
 这是一个非常简单的分布式旅行预订系统的DBMS，是作为“分布式数据库”这门课程的结课实验。
 该系统主要是为了实现2PC（Two Phase Commitment Protocol）、2PL（Two Phase Locking Protocol）协议而设计的。所以在局部管理系统方面功能非常简单，没有实现对SQL语言的支持。而是通过add、delete、updata函数实现对表的增加、删除、修改操作。
 该项目中共计有5张表，分别为FLIGHTS，HOTELS，CARS，CUSTOMERS，RESERVATIONS。
+
+RM(Resource Manager)实现了一个本地的资源管理器，主要实现了对上述5张表的增加、删除、修改操作。
+
+WC(Workflow Controller)是一个工作流控制器。这个工作流控制器将是个前端的，这样就可使RM上的永久数据不会暴露在用户面前。为了达到这样的效果，工作流控制器要支持和RM相同的界面。WC将提供以下功能，例如reserveItinerary函数：
+reserveItinerary(int xid, String custName, List flightNumList, String location, boolean needCar, boolean needRoom) 这个reserveItinerary函数是工作流控制器相关的一种高层操作。参数有：xid（事务id）custNum（用户名），flightNumList(一张说有航班的号码表) location(旅行房间和汽车可能会被预订的地方),needCar/needRoom(真表示用户需要一辆车/房间)。
+通过这种函数实现底层数据对于用户的隐藏。
+
